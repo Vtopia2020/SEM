@@ -1,11 +1,8 @@
 library(xlsxjars)  # Load the xlsxjars library for handling Excel files
 library(rJava)  # Load the rJava library for using Java programs in R
-library(devtools)  # Load the devtools library for developing R packages
 library(lavaan)  # Load the lavaan library for structural equation modeling analysis
-library(piecewiseSEM)  # Load the piecewiseSEM library for fitting piecewise structural equation models
 library(semPlot)  # Load the semPlot library for plotting structural equation models
 library(semTools)  # Load the semTools library for SEM tools functions
-library(tidySEM)  # Load the tidySEM library for organizing structural equation model results
 library(xlsx)  # Load the xlsx library for reading and writing Excel files
 library(psych)  # Load the psych library for psychological statistical analysis
 library(plspm)  # Load the plspm library for partial least squares path modeling
@@ -14,7 +11,7 @@ library(plspm)  # Load the plspm library for partial least squares path modeling
 Mydata <- read.xlsx(file="E:\\Rworkplace\\R_SEM\\Huangyou\\huangyou20230509.xlsx",sheetIndex=1)
 PCAdata <- data.frame(Mydata$AIR,Mydata$IIR,Mydata$IRI,Mydata$IRII,Mydata$IRIII,Mydata$SIR)
 par(mfrow=c(1,1));
-fa.parallel(PCAdata,fa="pc",n.iter = 100)  # Perform factor analysis and plot scree plot
+fa.parallel(PCAdata,fa="pc",n.iter = 30)  # Perform factor analysis and plot scree plot
 pc <- principal(PCAdata,nfactors = 2,rotate = "none",scores = TRUE)  # Perform principal component analysis
 pc
 
@@ -77,6 +74,6 @@ summary(AIRsem, standardize = T, rsq = T)  # Display summary information of the 
 summary(IIRsem, standardize = T, rsq = T)  # Display summary information of the IIR model
 i1 <- 12
 i2 <- 2
-par(mfrow=c(1,2));
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1)) 
 semPaths(AIRsem,what="std", layout="tree", style="lisrel",nCharNodes=0,nCharEdges=0,title=TRUE,fade=FALSE,sizeMan = i1, edge.label.cex = i2)  # Plot the path diagram of the AIR model
 semPaths(IIRsem,what="std", layout="tree", style="lisrel",nCharNodes=0,nCharEdges=0,title=TRUE,fade=FALSE,sizeMan = i1, edge.label.cex = i2)  # Plot the path diagram of the IIR model
